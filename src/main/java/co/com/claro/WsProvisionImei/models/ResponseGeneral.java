@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,6 +15,6 @@ public class ResponseGeneral {
 
     private String code;
     private String message;
-    private ResponseImeiCursor cursor;
+    private List<ResponseImeiCursor> cursor;
 
 }

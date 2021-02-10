@@ -9,6 +9,7 @@ import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class ProvisionRepository {
 
     public ResponseGeneral validateImei(String imei){
         ResponseGeneral responseGeneral = new ResponseGeneral();
-        ResponseImeiCursor responseImeiCursor = new ResponseImeiCursor();
+
         boolean find  = false;
         try {
             StoredProcedureQuery spq = entityManager
@@ -42,24 +43,29 @@ public class ProvisionRepository {
             String mensaje = (String) spq.getOutputParameterValue("vch_mensaje") ;
             responseGeneral.setMessage(mensaje);
 
+            List<ResponseImeiCursor> cursor = new ArrayList<>();
+
             if (codigo.equals("1")){
                 List<Object[]> results = spq.getResultList();
                 for (Object[] data :results) {
+                        ResponseImeiCursor responseImeiCursor = new ResponseImeiCursor();
                         find = true ;
                         BigDecimal dato = (BigDecimal) data[0];
                         responseImeiCursor.setIde(dato.toString());
                         responseImeiCursor.setImsi((String) data[1]);
-                        responseImeiCursor.setMini((String) data[2]);
+                        responseImeiCursor.setMin((String) data[2]);
                         Timestamp tmp = (Timestamp) data[3];
                         responseImeiCursor.setDate_registry((new Date(tmp.getTime())));
                         Timestamp tmp2 = (Timestamp) data[4];
                         responseImeiCursor.setDate_execution((new Date(tmp2.getTime())));
                         responseImeiCursor.setOperation_type((String) data[5]);
+                        cursor.add(responseImeiCursor);
+
                 }
                 if (find){
                     responseGeneral.setCode("1");
                     responseGeneral.setMessage("Se han encontrado resultados");
-                    responseGeneral.setCursor(responseImeiCursor);
+                    responseGeneral.setCursor(cursor);
                 } else {
                     responseGeneral.setCode("-1");
                     responseGeneral.setMessage("El IMEI no tiene el formato adecuado");

@@ -15,10 +15,7 @@ public class ResponseImeiCursor {
 
     private String ide;
     private String imsi;
-    private String mini;
-    //private String fecha_registro;
-    //private String fecha_ejecucion;
-    //private String tipo_operacion;
+    private String min;
     private Date date_registry;
     private Date date_execution;
     private String operation_type;
