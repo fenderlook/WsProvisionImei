@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="WsProvisionImei:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>WsProvisionImei</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="WsProvisionImei-0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="WsProvisionImei:war exploded" />
+    </root>
+  </artifact>
+</component>
